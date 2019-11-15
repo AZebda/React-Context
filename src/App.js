@@ -6,9 +6,8 @@ const MyContext = React.createContext();
 // Then create a provider Component
 class MyProvider extends Component {
   state = {
-    name: 'Wes',
-    age: 100,
-    cool: true
+    name: 'Ahlem',
+    age: 24,
   }
   render() {
     return (
@@ -24,21 +23,40 @@ class MyProvider extends Component {
   }
 }
 
-const Family = (props) => (
+const Level0 = (props) => (
   <div className="family">
-    <Person />
+    <Level1 />
   </div>
 )
 
-class Person extends Component {
+class Level1 extends Component {
   render() {
     return (
       <div className="person">
         <MyContext.Consumer>
           {(context) => (
             <React.Fragment>
-              <p>Age: {context.state.age}</p>
               <p>Name: {context.state.name}</p>
+              <p>Age: {context.state.age}</p>
+              <button onClick={context.growAYearOlder}>🍰🍥🎂</button>
+              <Level2 />
+            </React.Fragment>
+          )}
+        </MyContext.Consumer>
+      </div>
+    )
+  }
+}
+
+class Level2 extends Component {
+  render() {
+    return (
+      <div className="person">
+        <MyContext.Consumer>
+          {(context) => (
+            <React.Fragment>
+              <p>Name: {context.state.name}</p>
+              <p>Age: {context.state.age}</p>
               <button onClick={context.growAYearOlder}>🍰🍥🎂</button>
             </React.Fragment>
           )}
@@ -48,14 +66,13 @@ class Person extends Component {
   }
 }
 
-
 class App extends Component {
   render() {
     return (
       <MyProvider>
         <div>
           <p>I am the app</p>
-          <Family />
+          <Level0 />
         </div>
       </MyProvider>
     );
